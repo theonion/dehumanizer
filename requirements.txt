@@ -1,0 +1,15 @@
+Django==1.4.2
+Pillow==1.7.8
+amqplib==1.0.2
+anyjson==0.3.3
+billiard==2.7.3.18
+celery==3.0.12
+django-celery==3.0.11
+kombu==2.4.8
+python-aalib==0.2
+python-dateutil==1.5
+pytz==2012h
+requests==0.14.2
+requests-oauth==0.4.1
+sorl-thumbnail==11.12
+wsgiref==0.1.2

@@ -1,0 +1,50 @@
+body {
+    background-color: #272822;
+    margin: 40px;
+    text-align: center;
+}
+
+#console {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #060706;
+    color: #00F94F;
+    margin: 0px auto;
+    text-align: left;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+#console .row {
+    width: 100%;
+    clear: left;
+    padding: 0;
+    line-height: 26px;
+
+}
+
+#console .command {
+    margin-left: 11px;
+    padding: 0;
+    line-height: 22px;
+}
+
+#console form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+#console input {
+    border: none;
+    background-color: transparent;
+    margin-left: 10px;
+    padding: 0;
+    color: #00F94F;
+    outline: none;
+    width: 90%;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.1em;
+    font-weight: bold;
+}

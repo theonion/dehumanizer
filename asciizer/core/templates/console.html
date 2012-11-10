@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DeHumanizer86</title>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/styles.css" />
+	</head>
+	<body>
+        <div id="console">
+            {% for row in message %}
+                <div class="row">{{ row|safe }}</div>
+            {% endfor %}
+            {% if show_command %}
+                <div class="row" id="input">><form action="/process"><input type="text" name="url" /></form></div>
+            {% endif %}
+        </div>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/parseuri.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
+	</body>
+</html>

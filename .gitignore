@@ -1,0 +1,8 @@
+.DS_Store
+.Python
+bin
+include
+lib
+*.db
+.vagrant
+*.pyc
