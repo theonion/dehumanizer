@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>DeHumanizer86</title>
+		<title>Dehumanizer86</title>
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/styles.css" />
 	</head>
 	<body>
@@ -10,7 +10,12 @@
                 <div class="row">{{ row|safe }}</div>
             {% endfor %}
             {% if show_command %}
-                <div class="row" id="input">><form action="/process"><input type="text" name="url" /></form></div>
+                <div class="row" id="input">><form action="/image"><input type="text" name="url" /></form></div>
+            {% endif %}
+            {% if ansi %}
+                <div class="ansi">
+                    {{ ansi|safe }}
+                </div>
             {% endif %}
         </div>
         <script type="text/javascript" src="{{ STATIC_URL }}js/parseuri.js"></script>

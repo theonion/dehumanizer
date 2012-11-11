@@ -13,19 +13,12 @@ class Image(models.Model):
     )
 
     url = models.URLField()
-    text = models.TextField(null=True, blank=True)
+    ansi = models.TextField(null=True, blank=True)
+    html = models.TextField(null=True, blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
 
     def __unicode__(self):
         return self.url
 
-    def message(self):
-        if self.status == Image.COMPLETED and self.text:
-            return self.text
-        elif self.status == Image.PENDING:
-            return "IMPROVING REALITY..."
-        else:
-            return "REALITY IMPROVEMENT FAILED."
-
     def get_absolute_url(self):
-        return "/%s" % self.id
+        return "/image?url=%s" % self.url

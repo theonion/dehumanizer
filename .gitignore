@@ -3,6 +3,7 @@
 bin
 include
 lib
+share
 *.db
 .vagrant
 *.pyc

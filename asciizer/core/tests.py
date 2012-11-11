@@ -18,6 +18,6 @@ class SimpleTest(TestCase):
         print(image.text)
 
     def test_facebook_process(self):
-    	image = Image.objects.create(url="http://sphotos-a.xx.fbcdn.net/hphotos-ash3/179544_10100291371127022_749961118_n.jpg")
+        image = Image.objects.create(url="http://sphotos-a.xx.fbcdn.net/hphotos-ash3/179544_10100291371127022_749961118_n.jpg")
         process_image(image.id)
         print(image.text)

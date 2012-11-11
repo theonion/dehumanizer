@@ -123,6 +123,12 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+CELERY_ALWAYS_EAGER = False
+TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
