@@ -3,7 +3,7 @@ import aalib
 from celery import task
 from PIL import Image as PILImage
 from StringIO import StringIO
-from asciizer.core.models import Image
+from .models import Image
 
 ANSI = {
     '7m': 'negative',

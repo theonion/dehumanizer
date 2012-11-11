@@ -7,8 +7,8 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 
-from asciizer.core.models import Image
-from asciizer.core.tasks import process_image
+from .models import Image
+from .tasks import process_image
 
 
 class SimpleTest(TestCase):
