@@ -1,6 +1,5 @@
 Django==1.4.2
 Fabric==1.5.0
-PIL==1.1.7
 Pillow==1.7.8
 amqplib==1.0.2
 anyjson==0.3.3
@@ -20,6 +19,5 @@ python-dateutil==1.5
 pytz==2012h
 requests==0.14.2
 requests-oauth==0.4.1
-sorl-thumbnail==11.12
 supervisor==3.0b1
 wsgiref==0.1.2
