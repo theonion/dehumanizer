@@ -3,7 +3,8 @@
 bin
 include
 lib
+build
 share
-*.db
 .vagrant
 *.pyc
+webroot/static

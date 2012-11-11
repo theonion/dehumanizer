@@ -7,7 +7,6 @@ billiard==2.7.3.18
 celery==3.0.12
 django-celery==3.0.11
 gunicorn==0.15.0
-importlib==1.0.2
 ipython==0.13.1
 kombu==2.4.8
 meld3==0.6.9
@@ -19,5 +18,6 @@ python-dateutil==1.5
 pytz==2012h
 requests==0.14.2
 requests-oauth==0.4.1
-supervisor==3.0b1
+superlance==0.7
+supervisor==3.0a12
 wsgiref==0.1.2
