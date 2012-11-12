@@ -129,7 +129,7 @@ $(document).ready(function() {
             $(input).val('');
             $('.message').remove();
             $('.ansi').remove();
-        } else if (command.toLowerCase().indexOf('ls') != -1) {
+        } else if (command.toLowerCase().indexOf('ls') === 0) {
             logMessage("&nbsp;&nbsp;This is some next level shit, for sure, but it's not THAT next level.");
             $(input).val('');
         } else {
