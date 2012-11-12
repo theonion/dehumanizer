@@ -33,7 +33,7 @@ def home(request):
             "WELCOME TO THE DEHUMANIZER (v1.06b3)",
             "&nbsp;",
             "TO BEGIN THE REALITY IMPROVEMENT PROCESS, PLEASE PASTE AN IMAGE URL BELOW.",
-            "IF YOU ARE UNSURE HOW TO DO THIS, TYPE \"HELP\"",
+            "OR, TO ACCESS IMAGES FROM FACEBOOK, TYPE \"FACEBOOK\"",
             "&nbsp;",
         ],
         "show_command": True,
