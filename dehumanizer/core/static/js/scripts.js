@@ -20,8 +20,10 @@ function process_image(url){
             logMessage(data.ansi, 'ansi');
             window.history.pushState(data.url, "IMAGE DEHUMANIZATION COMPLETE", data.url);
             $("#input").show();
+        } else if (data.status == 'Pending') {
+            setTimeout(function(){process_image(url);}, 500);
         } else {
-            setTimeout(function(){process_image(url);}, 1000);
+            $("#input").show();
         }
     });
 }
@@ -87,7 +89,6 @@ $(document).ready(function() {
     var form = $("#console form");
     var input = $("#console form input");
 
-    input.focus();
     setInterval(function(){
         if($("#input").is(":visible")) {
             input.focus();
