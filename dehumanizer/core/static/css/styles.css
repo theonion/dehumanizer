@@ -48,6 +48,27 @@ body {
     font-size: 1.1em;
 }
 
+#console .photos {
+    width: 100%;
+    clear: left;
+    padding: 0;
+}
+
+.photo {
+    float: left;
+    margin: 5px;
+    width: 75px;
+    height: 75px;
+    border: 2px solid #272822;
+    cursor: pointer;
+}
+
+.photo:hover {
+    border: 2px solid #00F94F;
+}
+
+/* ANSI emulation stuff, plus some responsiveish bullshit. */
+
 #console .ansi {
     width: 100%;
     clear: left;
@@ -74,11 +95,6 @@ body {
         font-size: 3px;
   }
 }
-
-
-
-
-
 
 .ansi .negative {
     color: #272822;

@@ -73,7 +73,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -117,6 +117,7 @@ INSTALLED_APPS = (
 
     'dehumanizer.core',
     'djcelery',
+    'compressor',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -157,3 +158,5 @@ LOGGING = {
         },
     }
 }
+
+COMPRESS_OFFLINE = True

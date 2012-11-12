@@ -24,5 +24,6 @@ def deploy():
     with virtualenv():
         run('pip install -r requirements.txt')
         run('python manage.py collectstatic --noinput')
+        run('python manage.py compress')
         run('python manage.py syncdb --noinput')
         run('supervisorctl reload')
