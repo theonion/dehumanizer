@@ -48,10 +48,14 @@ body {
     font-size: 1.1em;
 }
 
-#console .photos {
+.photos {
     width: 100%;
     clear: left;
     padding: 0;
+}
+
+.loading {
+    opacity: 0.5;
 }
 
 .photo {
@@ -61,10 +65,16 @@ body {
     height: 75px;
     border: 2px solid #272822;
     cursor: pointer;
+    text-align: center;
+    line-height: 75px;
+    font-size: 3.5em;
+    font-weight: bold;
+    color: #272822;
 }
 
 .photo:hover {
     border: 2px solid #00F94F;
+    color: #00F94F;
 }
 
 /* ANSI emulation stuff, plus some responsiveish bullshit. */

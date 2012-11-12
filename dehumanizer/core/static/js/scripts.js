@@ -64,14 +64,25 @@ function choose_image(){
     process_image($(this).data().source);
 }
 
-function show_images(){
-    logMessage('> RETRIEVING FACEBOOK IMAGES...');
+function show_images(graph_url){
+    if(graph_url === undefined) {
+        graph_url = '/me/photos/uploaded';
+        logMessage('> RETRIEVING FACEBOOK IMAGES...');
+    }
     $("#input").hide();
     $("#console form input").val('');
-    var photo_root = $('<div class="photos"></div>');
-    photo_root.hide();
-    FB.api('/me/photos/uploaded', function(response) {
-        logMessage('> PLEASE CHOOSE AN IMAGE:');
+    var photo_root = $('.photos').first();
+    if(photo_root.length === 0) {
+        photo_root = $('<div class="photos"></div>');
+    } else {
+        photo_root.addClass('loading');
+    }
+    FB.api(graph_url, function(response) {
+        if(photo_root.hasClass('loading')) {
+            photo_root.empty();
+        } else {
+            logMessage('> PLEASE CHOOSE AN IMAGE:');
+        }
         for (var i = 0; i < response.data.length; i++){
             var photo = response.data[i];
             var photo_element = $('<div class="photo" data-source="' + photo.source + '"></div>');
@@ -79,8 +90,28 @@ function show_images(){
             photo_element.css("background-image", "url(" + photo.picture + ")");
             photo_root.append(photo_element);
         }
-        $('#console').append(photo_root);
-        photo_root.slideDown();
+        if('paging' in response) {
+            console.log('Has paging');
+            if('previous' in response.paging) {
+                console.log('Has prev');
+                var previous_element = $('<div class="photo previous"><</div>');
+                previous_element.click(function(){show_images(response.paging.previous);});
+                photo_root.prepend(previous_element);
+            }
+            if('next' in response.paging) {
+                console.log('Has next');
+                var next_element = $('<div class="photo next">></div>');
+                next_element.click(function(){show_images(response.paging.next);});
+                photo_root.append(next_element);
+            }
+        }
+        if(photo_root.hasClass('loading')) {
+            photo_root.removeClass('loading');
+        } else {
+            photo_root.hide();
+            $('#console').append(photo_root);
+            photo_root.slideDown();
+        }
     });
     
 }
@@ -88,12 +119,6 @@ function show_images(){
 $(document).ready(function() {
     var form = $("#console form");
     var input = $("#console form input");
-
-    setInterval(function(){
-        if($("#input").is(":visible")) {
-            input.focus();
-        }
-    }, 1000);
 
     form.submit(function(){
         var command = $(this).find('input').val();

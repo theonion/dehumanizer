@@ -36,7 +36,7 @@
                 <div class="row">{{ row|safe }}</div>
             {% endfor %}
             {% if show_command %}
-                <div class="row" id="input">><form action="/image"><input type="text" name="url" autofocus /></form></div>
+                <div class="row" id="input">><form action="/image"><input type="text" name="url" autocomplete="off" autofocus /></form></div>
             {% endif %}
             {% if ansi %}
                 <div class="ansi">
