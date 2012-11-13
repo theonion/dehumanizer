@@ -13,8 +13,7 @@ class Image(models.Model):
     )
 
     url = models.URLField()
-    ansi = models.TextField(null=True, blank=True)
-    html = models.TextField(null=True, blank=True)
+
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
 
     def __unicode__(self):
@@ -22,3 +21,18 @@ class Image(models.Model):
 
     def get_absolute_url(self):
         return "/image?url=%s" % self.url
+
+
+class ImageFrame(models.Model):
+
+    image = models.ForeignKey(Image, related_name='frames')
+    number = models.IntegerField()
+    ansi = models.TextField(null=True, blank=True)
+    html = models.TextField(null=True, blank=True)
+
+    class Meta:
+        unique_together = ("image", "number")
+        ordering = ["number"]
+
+    def __unicode__(self):
+        return "%s #%s" % (self.image, self.number)

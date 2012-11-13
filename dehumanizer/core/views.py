@@ -56,7 +56,7 @@ def process(request, extension=None):
 
     if image.status == Image.COMPLETED:
         context['message'] = ["> BEHOLD, YOUR IMPROVED IMAGE", "&nbsp;"]
-        context['ansi'] = image.html
+        context['frames'] = [frame.html for frame in image.frames.all()]
     elif image.status == Image.PENDING:
         context['message'] = [random.choice(PROCESSING_MESSAGES)]
     else:

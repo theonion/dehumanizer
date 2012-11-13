@@ -38,10 +38,14 @@
             {% if show_command %}
                 <div class="row" id="input">><form action="/image"><input type="text" name="url" autocomplete="off" autofocus /></form></div>
             {% endif %}
-            {% if ansi %}
-                <div class="ansi">
-                    {{ ansi|safe }}
-                </div>
+            {% if frames %}
+              <div class="ansi">
+                  {% for frame in frames %}
+                  <div class="frame">
+                    {{ frame|safe }}
+                  </div>
+                  {% endfor %}
+              </div>
             {% endif %}
         </div>
         {% compress js %}

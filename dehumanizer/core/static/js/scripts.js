@@ -1,3 +1,28 @@
+(function( $ ) {
+  $.fn.ansiAnimate = function() {
+
+    if(this.find('.frame').length === 1) {
+        return;
+    }
+
+    this.find('.frame').hide();
+    this.find('.frame').first().show();
+
+    var ansi = this;
+
+    setInterval(function(){
+        var this_frame = ansi.find('.frame:visible');
+        var next_frame = $(this_frame).next();
+        if(next_frame.length == 0) {
+            next_frame = ansi.find('.frame').first();
+        }
+        this_frame.hide();
+        next_frame.show();
+    }, 50);
+  };
+})( jQuery );
+
+
 function logMessage(text, css_class) {
     if (css_class === undefined) {
         css_class = 'row message';
@@ -17,11 +42,22 @@ function process_image(url){
             logMessage(data.message[i]);
         }
         if(data.status == 'Completed') {
+
+            var ansi = $('<div class="ansi"></div>');
+            $("#input").before(ansi);
+            for (var j = 0; j < data.frames.length; j++){
+                var frame_element = $('<div class="frame">' + data.frames[j] + '</div>');
+                if(j !== 0) {
+                    frame_element.hide();
+                }
+                ansi.append(frame_element);
+            }
+            $(ansi).ansiAnimate();
             logMessage(data.ansi, 'ansi');
             window.history.pushState(data.url, "IMAGE DEHUMANIZATION COMPLETE", data.url);
             $("#input").show();
         } else if (data.status == 'Pending') {
-            setTimeout(function(){process_image(url);}, 500);
+            setTimeout(function(){process_image(url);}, 1500);
         } else {
             $("#input").show();
         }
@@ -119,6 +155,8 @@ function show_images(graph_url){
 $(document).ready(function() {
     var form = $("#console form");
     var input = $("#console form input");
+
+    $('.ansi').ansiAnimate();
 
     form.submit(function(){
         var command = $(this).find('input').val();
