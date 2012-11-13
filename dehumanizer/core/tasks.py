@@ -4,6 +4,7 @@ from celery import task
 from PIL import Image as PILImage
 from StringIO import StringIO
 from .models import Image, ImageFrame
+from django.utils.html import escape
 
 ANSI = {
     '7m': ('<i>', '</i>'),  # negative
@@ -19,17 +20,17 @@ def process_failure(self, exc, task_id, args, kwargs, einfo):
     image.save()
 
 
-def escape(text):
-    htmlCodes = (
-        ('&', '&amp;'),
-        ('<', '&lt;'),
-        ('>', '&gt;'),
-        ('"', '&quot;'),
-        ("'", '&#39;'),
-    )
-    for char, escaped in htmlCodes:
-        text = text.replace(char, escaped)
-    return text
+# def escape(text):
+#     htmlCodes = (
+#         ('&', '&amp;'),
+#         ('<', '&lt;'),
+#         ('>', '&gt;'),
+#         ('"', '&quot;'),
+#         ("'", '&#39;'),
+#     )
+#     for char, escaped in htmlCodes:
+#         text = text.replace(char, escaped)
+#     return text
 
 
 def _html(ansi):
