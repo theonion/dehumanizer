@@ -13,7 +13,6 @@ class Image(models.Model):
     )
 
     url = models.URLField()
-
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
 
     def __unicode__(self):

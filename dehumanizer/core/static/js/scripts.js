@@ -2,6 +2,7 @@
   $.fn.ansiAnimate = function() {
 
     if(this.find('.frame').length === 1) {
+        console.log('only one frame');
         return;
     }
 
@@ -13,7 +14,7 @@
     setInterval(function(){
         var this_frame = ansi.find('.frame:visible');
         var next_frame = $(this_frame).next();
-        if(next_frame.length == 0) {
+        if(next_frame.length === 0) {
             next_frame = ansi.find('.frame').first();
         }
         this_frame.hide();
@@ -42,18 +43,8 @@ function process_image(url){
             logMessage(data.message[i]);
         }
         if(data.status == 'Completed') {
-
-            var ansi = $('<div class="ansi"></div>');
-            $("#input").before(ansi);
-            for (var j = 0; j < data.frames.length; j++){
-                var frame_element = $('<div class="frame">' + data.frames[j] + '</div>');
-                if(j !== 0) {
-                    frame_element.hide();
-                }
-                ansi.append(frame_element);
-            }
-            $(ansi).ansiAnimate();
             logMessage(data.ansi, 'ansi');
+            $('ansi').ansiAnimate();
             window.history.pushState(data.url, "IMAGE DEHUMANIZATION COMPLETE", data.url);
             $("#input").show();
         } else if (data.status == 'Pending') {
