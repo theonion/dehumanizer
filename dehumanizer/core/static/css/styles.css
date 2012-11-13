@@ -106,12 +106,18 @@ body {
   }
 }
 
-.ansi .negative {
-    color: #272822;
-    background-color: #00F94F;
+.ansi b {
+    font-weight: normal;
 }
 
-.ansi .gray {
+.ansi i {
+    color: #272822;
+    background-color: #00F94F;
+    font-style: normal;
+}
+
+.ansi s {
     color: #000000;
     background-color: #060706;
+    text-decoration: none;
 }
