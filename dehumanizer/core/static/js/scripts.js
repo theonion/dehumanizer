@@ -24,12 +24,15 @@
 })( jQuery );
 
 
-function logMessage(text, css_class) {
+function logMessage(text, css_class, callback) {
     if (css_class === undefined) {
         css_class = 'row message';
     }
     var line = '<div class="' + css_class + '">' + text + '</div>';
     $("#input").before(line);
+    if(cbk !== undefined) {
+        callback();
+    }
 }
 
 function test_url(url){
@@ -43,8 +46,9 @@ function process_image(url){
             logMessage(data.message[i]);
         }
         if(data.status == 'Completed') {
-            logMessage(data.ansi, 'ansi');
-            $('ansi').ansiAnimate();
+            logMessage(data.ansi, 'ansi', function(){
+                $('ansi').ansiAnimate();
+            });
             window.history.pushState(data.url, "IMAGE DEHUMANIZATION COMPLETE", data.url);
             $("#input").show();
         } else if (data.status == 'Pending') {

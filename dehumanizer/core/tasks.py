@@ -19,6 +19,19 @@ def process_failure(self, exc, task_id, args, kwargs, einfo):
     image.save()
 
 
+def escape(text):
+    htmlCodes = (
+        ('&', '&amp;'),
+        ('<', '&lt;'),
+        ('>', '&gt;'),
+        ('"', '&quot;'),
+        ("'", '&#39;'),
+    )
+    for char, escaped in htmlCodes:
+        text = text.replace(char, escaped)
+    return text
+
+
 def _html(ansi):
     html = StringIO()
     last_tag = ('', '')
@@ -27,6 +40,7 @@ def _html(ansi):
             if sequence.startswith(code):
                 text = sequence.replace(code, '', 1)
                 if text and text != '':
+                    text = escape(text)
                     if last_tag[0] != tag[0]:
                         text = '%s%s%s' % (last_tag[1], tag[0], text)
                     html.write(text)
