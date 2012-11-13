@@ -30,8 +30,6 @@ PROCESSING_MESSAGES = [
 def home(request):
     context = {
         "message": [
-            "WELCOME TO THE DEHUMANIZER (v1.06b3)",
-            "&nbsp;",
             "TO BEGIN THE REALITY IMPROVEMENT PROCESS, PLEASE PASTE AN IMAGE URL BELOW.",
             "OR, TO ACCESS IMAGES FROM FACEBOOK, TYPE \"FACEBOOK\"",
             "&nbsp;",
@@ -55,7 +53,10 @@ def process(request, extension=None):
     }
 
     if image.status == Image.COMPLETED:
-        context['message'] = ["> BEHOLD, YOUR IMPROVED IMAGE", "&nbsp;"]
+        context['message'] = [
+            "> %s" % image.url,
+            "&nbsp;",
+        ]
         frames = image.frames.all()
         if frames.count() == 1:
             context['ansi'] = frames[0].html

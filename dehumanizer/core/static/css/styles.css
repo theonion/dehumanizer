@@ -20,7 +20,7 @@ body {
 
 #console .row {
     width: 100%;
-    clear: left;
+    clear: both;
     padding: 0;
 }
 
@@ -84,7 +84,7 @@ body {
     clear: left;
     padding: 0;
     font-family: "Courier New", Courier, monospace;
-    white-space: nowrap;
+    white-space: pre;
     font-size: 10px;
 }
  
@@ -120,4 +120,10 @@ body {
     color: #000000;
     background-color: #060706;
     text-decoration: none;
+}
+
+
+#console .ansi.logo {
+    float: right;
+    width: 50%;
 }

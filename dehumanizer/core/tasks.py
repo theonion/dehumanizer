@@ -27,9 +27,8 @@ def _html(ansi):
             if sequence.startswith(code):
                 text = sequence.replace(code, '', 1)
                 if text and text != '':
-                    text = text.replace(' ', '&nbsp;')
-                    text = text.replace('\n', '<br />')
-                    text = '%s%s%s' % (last_tag[1], tag[0], text)
+                    if last_tag[0] != tag[0]:
+                        text = '%s%s%s' % (last_tag[1], tag[0], text)
                     html.write(text)
                     last_tag = tag
                 break
