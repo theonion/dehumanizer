@@ -6,10 +6,10 @@ from StringIO import StringIO
 from .models import Image, ImageFrame
 
 ANSI = {
-    '7m': 'i',  # negative
-    '0m': 'b',  # default
-    '3m': 'u',  # italic
-    '30;1m': 's',  # gray
+    '7m': ('<i>', '</i>'),  # negative
+    '0m': ('', ''),  # default
+    '3m': ('<u>', '</u>'),  # italic
+    '30;1m': ('<s>', '</s>'),  # gray
 }
 
 
@@ -21,8 +21,7 @@ def process_failure(self, exc, task_id, args, kwargs, einfo):
 
 def _html(ansi):
     html = StringIO()
-    html.write('<b>')
-    last_tag = 'b'
+    last_tag = ('', '')
     for sequence in ansi.split("\x1b["):
         for code, tag in ANSI.items():
             if sequence.startswith(code):
@@ -30,11 +29,11 @@ def _html(ansi):
                 if text and text != '':
                     text = text.replace(' ', '&nbsp;')
                     text = text.replace('\n', '<br />')
-                    text = '</%s><%s>%s' % (last_tag, tag, text)
+                    text = '%s%s%s' % (last_tag[1], tag[0], text)
                     html.write(text)
                     last_tag = tag
                 break
-    html.write('</%s>' % last_tag)
+    html.write(last_tag[1])
     return html.getvalue()
 
 
