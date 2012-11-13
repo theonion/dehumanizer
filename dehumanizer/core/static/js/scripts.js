@@ -41,7 +41,7 @@ function login(callback) {
         } else {
             logMessage("> FACEBOOK LOGIN CANCELED");
         }
-    });
+    }, {'perms': 'user_photos'});
 }
 
 function facebook() {
