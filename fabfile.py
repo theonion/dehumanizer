@@ -23,7 +23,7 @@ def deploy():
     rsync_project(env.projectroot, local_dir='./', delete=True, exclude=['lib', 'bin', 'build', 'include', 'lib', 'local', 'share', '*.db', '*.pyc', '.git', 'webroot/static'])
     with virtualenv():
         run('pip install -r requirements.txt')
-        run('python manage.py collectstatic --noinput')
-        run('python manage.py compress')
-        run('python manage.py syncdb --noinput')
+        run('python manage.py collectstatic --settings=dehumanizer.production --noinput')
+        run('python manage.py compress --settings=dehumanizer.production')
+        run('python manage.py syncdb --settings=dehumanizer.production --noinput')
         run('supervisorctl reload')
