@@ -43,7 +43,9 @@ def process_image(image_id):
     image = Image.objects.get(id=image_id)
     image_response = requests.get(image.url)
     pil_image = PILImage.open(StringIO(image_response.content))
+    pil_image.convert('RGBA')
     pil_image.seek(0)
+    palette = pil_image.getpalette()
 
     width = 150
     height = ((pil_image.size[1] * 0.65) * width) / pil_image.size[0]
@@ -55,8 +57,12 @@ def process_image(image_id):
             pil_image.seek(pil_image.tell() + 1)
         except EOFError:
             break
-        print("Frame: %s" % pil_image.tell())
-        screen.put_image((0, 0), pil_image.convert('L').resize(screen.virtual_size))
+
+        pil_image.putpalette(palette)
+        pil_frame = PILImage.new("RGBA", pil_image.size)
+        pil_frame.paste(pil_image)
+        screen.put_image((0, 0), pil_frame.convert('L').resize(screen.virtual_size))
+
         frame, created = ImageFrame.objects.get_or_create(image=image, number=pil_image.tell())
         frame.ansi = screen.render()
         frame.html = _html(frame.ansi)
