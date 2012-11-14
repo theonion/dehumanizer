@@ -1,5 +1,7 @@
-<div class="ansi" data-duration="{{ duration|default:0 }}">
-    <div class="sharetools">
-    </div>
-    {{ ansi|safe }}
-</div>
+<div class="ansi" data-duration="{{ image.duration|default:0 }}" data-url="{{ image.url }}"><div class="sharetools">
+            <a class="fb" href="http://www.facebook.com/dialog/feed?app_id=298915313543284&link={{ image.get_share_url }}&redirect_uri=http://dehumanizer.theonion.com/&display=popup&" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;"><u class="icon-facebook-sign"></u></a>
+            <a class="tw" href="https://twitter.com/share?url={{ image.get_share_url }}&related=TheOnion" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;"><u class="icon-twitter-sign"></u></a>
+            <a class="embed" href="#" onclick="javascript:getEmbed();">
+                <u class="icon-chevron-left"></u>
+                <u class="icon-chevron-right"></u>
+            </a></div>{{ ansi|safe }}</div>

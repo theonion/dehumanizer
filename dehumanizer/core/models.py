@@ -21,6 +21,9 @@ class Image(models.Model):
     def __unicode__(self):
         return self.url
 
+    def get_share_url(self):
+        return "http://dehumanizer.theonion.com%s" % self.get_absolute_url
+
     def get_absolute_url(self):
         return "/image?url=%s" % self.url
 

@@ -24,8 +24,7 @@ Alternatively, you can just run the whole damn thing via supervisor, which will 
 
 TODO:
 
- - One picture are a time
- - retry links
  - implement 'history'
  - Share Tools
  - caching
+ - 'help'

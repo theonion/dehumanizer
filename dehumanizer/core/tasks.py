@@ -60,7 +60,7 @@ def process_image(image_id):
     pil_image.seek(0)
     palette = pil_image.getpalette()
 
-    image.duration = pil_image.info['duration']
+    image.duration = pil_image.info.get('duration', 0)
     image.save()
 
     width = 150

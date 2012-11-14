@@ -29,6 +29,14 @@
 })( jQuery );
 
 
+function getEmbed() {
+    var ansi = $('.ansi');
+    var width = 530;
+    var height = Math.floor(((ansi.height() + 48) * width) / ansi.width());
+    prompt("Copy and paste this HTML to embed:", '<iframe src="http://dehumanizer.theonion.com/embed?url=' + ansi.attr('data-url') + '" height="' + height + '" width="' + width + '" />');
+    return;
+}
+
 function logMessage(text, css_class) {
     if (css_class === undefined) {
         css_class = 'row message';
@@ -48,8 +56,7 @@ function process_image(url){
             logMessage(data.message[i]);
         }
         if(data.status == 'Completed') {
-            logMessage(data.ansi, 'ansi');
-            $('.ansi').attr('data-duration', data.duration);
+            $("#input").before(data.html);
             $('.ansi').ansiAnimate();
 
             window.history.pushState(data.url, "IMAGE DEHUMANIZATION COMPLETE", data.url);
@@ -168,9 +175,11 @@ $(document).ready(function() {
             $(input).val('');
             $('.message').remove();
             $('.ansi').remove();
-        } else if (command.toLowerCase().indexOf('ls') === 0) {
+        } else if (command.toLowerCase() == 'ls' || command.toLowerCase().indexOf('ls ') === 0 ) {
             logMessage("&nbsp;&nbsp;This is some next level shit, for sure, but it's not THAT next level.");
             $(input).val('');
+        } else if(command.toLowerCase() == 'history') {
+            // Print history
         } else {
             if(test_url(command)) {
                 $("#input").hide();

@@ -1,11 +1,12 @@
 {% load compress %}<!DOCTYPE html>
 <html>
 	<head>
-		<title>Dehumanizer86</title>
+		<title>DEHUMANIZER{% if url %} | {{ url }}{% endif %}</title>
     <meta charset="UTF-8"> 
     <link rel="icon" type="image/png" href="/favicon.png">
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/font-awesome.css" />
     {% endcompress %}
 	</head>
 	<body>
@@ -34,7 +35,8 @@
         </script>
 
         <div id="console">
-            <div class="row">WELCOME TO THE DEHUMANIZER (v1.06b3){% include "logo.html" %}</div>
+            {% include "logo.html" %}
+            <div class="row">WELCOME TO THE DEHUMANIZER (v1.06b3)</div>
             <div class="row">&nbsp;</div>        
             {% for row in message %}
                 <div class="row">{{ row|safe }}</div>
@@ -44,8 +46,8 @@
             {% else %}
               <div class="row" id="input"></div>
             {% endif %}
-            {% if ansi %}
-              {% include "ansi.html" with ansi=ansi %}
+            {% if html %}
+              {{ html }}
             {% endif %}
         </div>
         {% compress js %}

@@ -16,13 +16,18 @@ body {
     overflow: hidden;
     max-width: 900px;
     min-width: 280px;
+    position: relative;
 }
 
 #console .row {
-    width: 100%;
+    width: 90%;
     clear: both;
     padding: 0;
-    position: relative;
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;      /* IE */
 }
 
 #console a {
@@ -90,29 +95,12 @@ body {
 
 .ansi {
     width: 100%;
-    clear: left;
+    clear: both;
     padding: 0;
     font-family: "Courier New", Courier, monospace;
     white-space: pre;
     font-size: 10px;
-}
- 
-@media screen and (max-width: 750px) {
-  #console .ansi {
-        font-size: 7px;
-  }
-}
- 
-@media screen and (max-width: 540px) {
-  #console .ansi {
-        font-size: 5px;
-  }
-}
- 
-@media screen and (max-width: 380px) {
-  #console .ansi {
-        font-size: 3px;
-  }
+    position: relative;
 }
 
 /* LOGO */
@@ -122,8 +110,8 @@ body {
     height: 80px;
     width: 60px;
     position: absolute;
-    top: -5px;
-    right: 0;
+    top: 5px;
+    right: 8px;
     display: block;
     padding: 0;
     font-family: "Courier New", Courier, monospace;
@@ -146,4 +134,103 @@ body {
     color: #000000;
     background-color: #060706;
     text-decoration: none;
+}
+
+@media screen and (max-width: 750px) {
+    .ansi {
+        font-size: 7px;
+    }
+}
+ 
+@media screen and (max-width: 540px) {
+    .ansi {
+        font-size: 5px;
+
+    }
+    .embed .ansi {
+        font-size: 7px;
+    }   
+}
+ 
+@media screen and (max-width: 380px) {
+    .ansi {
+        font-size: 3px;
+    }
+}
+
+/* sharetools */
+
+.sharetools {
+    margin: 0;
+    height: 55px;
+    width: 100%;
+    background-color: #565656;
+    opacity: 0.9;
+    position: absolute;
+    top: 20;
+    left: 0;
+    z-index: 20;
+    display: none;
+}
+
+.ansi:hover .sharetools {
+    display: block;
+}
+
+.sharetools a {
+    display: block;
+    position: absolute;
+    top: 8px;
+    text-decoration: none;
+    height: 40px;
+    width: 40px;
+}
+
+.sharetools .fb {
+    left: 10px;
+}
+
+.sharetools .tw {
+    left: 58px;
+}
+
+.sharetools .embed {
+    left: 105px;
+    width: 60px;
+}
+
+.sharetools u {
+    font-size: 4.5em;
+    text-decoration: none;
+}
+
+.sharetools .embed u {
+    font-size: 4.0em;
+    position: absolute;
+    top: 3px;
+    left: 0;
+}
+
+.sharetools .embed .icon-chevron-right {
+    left: 30px;
+}
+
+/* embed */
+
+body.embed {
+    margin: 0;
+}
+
+.embed #console {
+    padding: 0;
+    width: 530px;
+    border-radius: 0;
+} 
+
+.embed .ansi {
+    font-size: 6px;
+}
+
+.embed .ansi:hover .sharetools{
+    display: none;
 }

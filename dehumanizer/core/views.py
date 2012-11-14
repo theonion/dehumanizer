@@ -3,11 +3,20 @@ import random
 
 from django.http import Http404, HttpResponse
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template.loader import render_to_string
 
 from .models import Image
 from .tasks import process_image
 
+SAMPLE_URLS = [
+    "http://www.worldbook.com/images/stories/lincoln_1863.jpg",
+    "http://i.imgur.com/QgJUL.gif",
+    "http://i.imgur.com/u2wGH.jpg",
+    "https://si0.twimg.com/profile_images/2172000801/Screen_shot_2011-11-16_at_9.08.14_PM.png",
+    "http://scs.viceland.com/int/v17n10/htdocs/employees-544/rob-delaney.jpg",
+    "http://upload.wikimedia.org/wikipedia/commons/1/10/Mount_Rushmore_National_Memorial.jpg",
+]
 
 PROCESSING_MESSAGES = [
     '> ANALYZING PUNY HUMANS...',
@@ -30,13 +39,37 @@ PROCESSING_MESSAGES = [
 def home(request):
     context = {
         "message": [
-            "TO BEGIN THE REALITY IMPROVEMENT PROCESS, PLEASE PASTE AN IMAGE URL BELOW.",
-            "OR, TO ACCESS IMAGES FROM FACEBOOK, TYPE \"FACEBOOK\"",
-            "&nbsp;",
+            "PLEASE INPUT AN IMAGE URL, SUCH AS ONE OF THESE:",
         ],
         "show_command": True,
     }
+    for url in random.sample(SAMPLE_URLS, 2):
+        context['message'].append('> <a href="/image?url=%s">%s</a>' % (url, url))
+    context['message'].append('&nbsp;')
+    context['message'].append('YOU CAN ALSO GET IMAGES FROM FACEBOOK BY TYPING "FACEBOOK"')
+    context['message'].append('FOR ASSISTANCE, TYPE "HELP"')
+    context['message'].append('&nbsp;')
+
     return render_to_response('console.html', context, context_instance=RequestContext(request))
+
+
+def embed(request):
+    if 'url' not in request.GET:
+        raise Http404
+
+    image = get_object_or_404(Image, url=request.GET.get('url'))
+    context = {'html': _html(image)}
+    return render_to_response('embed.html', context, context_instance=RequestContext(request))
+
+
+def _html(image):
+    context = {'image': image}
+    frames = image.frames.all()
+    if frames.count() == 1:
+        context['ansi'] = frames[0].html
+    else:
+        context['ansi'] = '</div><div class="frame">'.join([frame.html for frame in frames]).join(['<div class="frame">', '</div>'])
+    return render_to_string('ansi.html', context)
 
 
 def process(request, extension=None):
@@ -49,21 +82,16 @@ def process(request, extension=None):
 
     context = {
         'status': image.get_status_display(),
+        'share_url': 'http://dehumanizer.theonion.com%s' % image.get_absolute_url(),
+        'url': image.url,
     }
-
     if image.status == Image.COMPLETED:
         context['message'] = [
-            "> %s [<a href=\"/\">DEHUMANIZE ANOTHER IMAGE</a>]" % image.url,
+            ">&nbsp;<a target='_blank' href='%s'>%s</a> [<a href=\"/\">DEHUMANIZE&nbsp;ANOTHER&nbsp;IMAGE</a>]" % (image.url, image.url),
             "&nbsp;",
         ]
-        frames = image.frames.all()
-        if frames.count() == 1:
-            context['ansi'] = frames[0].html
-        else:
-            context['ansi'] = '</div><div class="frame">'.join([frame.html for frame in frames]).join(['<div class="frame">', '</div>'])
-            context['duration'] = image.duration
+        context['html'] = _html(image)
     elif image.status == Image.PENDING:
-        context['url'] = image.url
         context['message'] = [random.choice(PROCESSING_MESSAGES)]
     else:
         context['message'] = ["> REALITY IMPROVEMENT FAILED. PLEASE TRY ANOTHER IMAGE."]
