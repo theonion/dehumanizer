@@ -101,6 +101,7 @@ body {
     white-space: pre;
     font-size: 10px;
     position: relative;
+    border: 1px solid #00F94F;
 }
 
 /* LOGO */

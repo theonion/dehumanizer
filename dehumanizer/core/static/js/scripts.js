@@ -33,7 +33,7 @@ function getEmbed() {
     var ansi = $('.ansi');
     var width = 530;
     var height = Math.floor(((ansi.height() + 48) * width) / ansi.width());
-    prompt("Copy and paste this HTML to embed:", '<iframe src="http://dehumanizer.theonion.com/embed?url=' + ansi.attr('data-url') + '" height="' + height + '" width="' + width + '" />');
+    prompt("Copy and paste this HTML to embed:", '<iframe src="http://dehumanizer.theonion.com/embed?url=' + ansi.attr('data-url') + '" height="' + height + '" width="' + width + '" scrolling="no" />');
     return;
 }
 

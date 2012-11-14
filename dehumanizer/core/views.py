@@ -5,17 +5,15 @@ from django.http import Http404, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.loader import render_to_string
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 from .models import Image
 from .tasks import process_image
 
 SAMPLE_URLS = [
-    "http://www.worldbook.com/images/stories/lincoln_1863.jpg",
     "http://i.imgur.com/QgJUL.gif",
     "http://i.imgur.com/u2wGH.jpg",
-    "https://si0.twimg.com/profile_images/2172000801/Screen_shot_2011-11-16_at_9.08.14_PM.png",
-    "http://scs.viceland.com/int/v17n10/htdocs/employees-544/rob-delaney.jpg",
-    "http://upload.wikimedia.org/wikipedia/commons/1/10/Mount_Rushmore_National_Memorial.jpg",
 ]
 
 PROCESSING_MESSAGES = [
@@ -36,6 +34,7 @@ PROCESSING_MESSAGES = [
     '> ADDING LOGIC GLORIOUS LOGIC...']
 
 
+@cache_page(60 * 15)
 def home(request):
     context = {
         "message": [
@@ -44,10 +43,12 @@ def home(request):
         "show_command": True,
     }
     for url in random.sample(SAMPLE_URLS, 2):
-        context['message'].append('> <a href="/image?url=%s">%s</a>' % (url, url))
+        context['message'].append('>&nbsp;<a href="/image?url=%s">%s</a>' % (url, url))
     context['message'].append('&nbsp;')
-    context['message'].append('YOU CAN ALSO GET IMAGES FROM FACEBOOK BY TYPING "FACEBOOK"')
-    context['message'].append('FOR ASSISTANCE, TYPE "HELP"')
+    context['message'].append('YOU CAN ALSO GET IMAGES FROM FACEBOOK BY TYPING "<b>FACEBOOK</b>".')
+    context['message'].append('FOR ASSISTANCE, TYPE "<b>HELP</b>".')
+    context['message'].append('&nbsp;')
+    context['message'].append('ALSO, WATCH THE ONION\'S <a href="http://screen.yahoo.com/the-onions-history-of-the-internet">HISTORY OF THE INTERNET</a>.')
     context['message'].append('&nbsp;')
 
     return render_to_response('console.html', context, context_instance=RequestContext(request))
@@ -64,12 +65,17 @@ def embed(request):
 
 def _html(image):
     context = {'image': image}
+    html = cache.get(image.id)
+    if html:
+        return html
     frames = image.frames.all()
     if frames.count() == 1:
         context['ansi'] = frames[0].html
     else:
         context['ansi'] = '</div><div class="frame">'.join([frame.html for frame in frames]).join(['<div class="frame">', '</div>'])
-    return render_to_string('ansi.html', context)
+    html = render_to_string('ansi.html', context)
+    cache.set(image.id, html, 60 * 15)
+    return html
 
 
 def process(request, extension=None):

@@ -25,6 +25,5 @@ Alternatively, you can just run the whole damn thing via supervisor, which will 
 TODO:
 
  - implement 'history'
- - Share Tools
  - caching
  - 'help'
