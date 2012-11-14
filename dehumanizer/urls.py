@@ -6,5 +6,6 @@ urlpatterns = patterns('dehumanizer.core.views',
     url(r'^$', 'home'),
     url(r'^image(?P<extension>\.json)?$', 'process'),
     url(r'^embed$', 'embed'),
-    url(r'^channel\.html$', TemplateView.as_view(template_name="channel.html"))
+    url(r'^channel\.html$', TemplateView.as_view(template_name="channel.html")),
+    url(r'^json/(?P<filename>\w+)\.json$', 'static_json'),
 )

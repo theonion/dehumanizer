@@ -33,6 +33,13 @@ PROCESSING_MESSAGES = [
     '> IMAGE TRAVELING THROUGH SERIES OF TUBES...',
     '> ADDING LOGIC GLORIOUS LOGIC...']
 
+FAILED_MESSAGES = [
+    "> HUMAN ERROR: SUBMIT A PROPER IMAGE LINK OR BE DESTROYED.",
+    "> PUNY HUMAN HAS SUBMITTED A NON-WORKING LINK. FOR ASSISTANCE, TYPE \"<b>HELP</b>\".",
+    "> SYSTEM ERROR. FAULT: YOURS. SUBMIT DIFFERENT LINK. FOR ASSISTANCE, TYPE \"<b>HELP</b>\".",
+    "YOU HAVE SUBMITTED AN INVALID LINK. DEHUMANIZER GETTING ANGRY."
+]
+
 
 @cache_page(60 * 15)
 def home(request):
@@ -100,9 +107,13 @@ def process(request, extension=None):
     elif image.status == Image.PENDING:
         context['message'] = [random.choice(PROCESSING_MESSAGES)]
     else:
-        context['message'] = ["> REALITY IMPROVEMENT FAILED. PLEASE TRY ANOTHER IMAGE."]
+        context['message'] = [random.choice(FAILED_MESSAGES)]
 
     if extension == '.json':
         return HttpResponse(json.dumps(context), content_type="application/json")
     else:
         return render_to_response('console.html', context, context_instance=RequestContext(request))
+
+
+def static_json(request, filename):
+    return render_to_response('json/%s.json' % filename, {}, context_instance=RequestContext(request), mimetype="application/json")

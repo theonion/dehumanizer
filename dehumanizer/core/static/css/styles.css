@@ -200,6 +200,12 @@ body {
     width: 60px;
 }
 
+.sharetools .copy {
+    left: 75px;
+    width: 60px;
+    top: 0;
+}
+
 .sharetools u {
     font-size: 4.5em;
     text-decoration: none;

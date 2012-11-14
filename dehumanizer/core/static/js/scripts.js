@@ -34,7 +34,12 @@ function getEmbed() {
     var width = 530;
     var height = Math.floor(((ansi.height() + 48) * width) / ansi.width());
     prompt("Copy and paste this HTML to embed:", '<iframe src="http://dehumanizer.theonion.com/embed?url=' + ansi.attr('data-url') + '" height="' + height + '" width="' + width + '" scrolling="no" />');
-    return;
+    return false;
+}
+
+function getShareURL(url) {
+    prompt("COPY AND PASTE THIS TO ALL YOUR FRIENDS AND FAMILY", url);
+    return false;
 }
 
 function logMessage(text, css_class) {
@@ -59,7 +64,7 @@ function process_image(url){
             $("#input").before(data.html);
             $('.ansi').ansiAnimate();
 
-            window.history.pushState(data.url, "IMAGE DEHUMANIZATION COMPLETE", data.url);
+            window.history.pushState(url, "IMAGE DEHUMANIZATION COMPLETE", "/image?url=" + url);
         } else if (data.status == 'Pending') {
             setTimeout(function(){process_image(url);}, 2500);
         } else {
@@ -180,6 +185,20 @@ $(document).ready(function() {
             $(input).val('');
         } else if(command.toLowerCase() == 'history') {
             // Print history
+        } else if (command.toLowerCase() == 'help' || command.toLowerCase().indexOf('help ') === 0) {
+            $.get('/json/help.json', function(data) {
+                for (var i = 0; i < data.message.length; i++) {
+                    logMessage(data.message[i]);
+                }
+                $(input).val('');
+            });
+        } else if (command.toLowerCase() == 'man' || command.toLowerCase().indexOf('man ') === 0) {
+            $.get('/json/man.json', function(data) {
+                for (var i = 0; i < data.message.length; i++) {
+                    logMessage(data.message[i]);
+                }
+                $(input).val('');
+            });
         } else {
             if(test_url(command)) {
                 $("#input").hide();
@@ -188,7 +207,7 @@ $(document).ready(function() {
                 // Make call to start image processing.
             } else {
                 $(input).val('');
-                logMessage("ERR: INVALID URL. TRY AGAIN, PUNY HUMAN.");
+                logMessage("ERR: INVALID URL. TRY AGAIN, PUNY HUMAN. FOR ASSISTANCE, TYPE \"HELP\"");
             }
         }
         return false;
