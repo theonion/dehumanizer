@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 
 
@@ -14,6 +15,8 @@ class Image(models.Model):
 
     url = models.URLField()
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
+    duration = models.IntegerField(default=0)
+    created = models.DateTimeField(default=datetime.datetime.now)
 
     def __unicode__(self):
         return self.url

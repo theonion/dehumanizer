@@ -62,6 +62,7 @@ def process(request, extension=None):
             context['ansi'] = frames[0].html
         else:
             context['ansi'] = '</div><div class="frame">'.join([frame.html for frame in frames]).join(['<div class="frame">', '</div>'])
+            context['duration'] = image.duration
     elif image.status == Image.PENDING:
         context['message'] = [random.choice(PROCESSING_MESSAGES)]
     else:

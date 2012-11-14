@@ -20,3 +20,13 @@ Run the celery worker (which does the actual processing):
 Alternatively, you can just run the whole damn thing via supervisor, which will make the site available on port 80:
 
     > supervisord
+
+
+TODO:
+
+ - GIF frame duration
+ - One picture are a time
+ - retry links
+ - implement 'history'
+ 
+ 

@@ -60,6 +60,9 @@ def process_image(image_id):
     pil_image.seek(0)
     palette = pil_image.getpalette()
 
+    image.duration = pil_image.info['duration']
+    image.save()
+
     width = 150
     height = ((pil_image.size[1] * 0.65) * width) / pil_image.size[0]
     screen = aalib.LinuxScreen(width=int(width), height=int(height))

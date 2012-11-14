@@ -1,8 +1,12 @@
 (function( $ ) {
   $.fn.ansiAnimate = function() {
     if(this.find('.frame').length === 1) {
-        console.log('only one frame');
         return;
+    }
+
+    var duration = this.data('duration');
+    if(duration === 0) {
+        duration = 50;
     }
 
     this.find('.frame').hide();
@@ -18,7 +22,7 @@
         }
         this_frame.hide();
         next_frame.show();
-    }, 50);
+    }, duration);
   };
 })( jQuery );
 
@@ -43,12 +47,13 @@ function process_image(url){
         }
         if(data.status == 'Completed') {
             logMessage(data.ansi, 'ansi');
+            $('.ansi').data('duration', data.duration);
             $('.ansi').ansiAnimate();
 
             window.history.pushState(data.url, "IMAGE DEHUMANIZATION COMPLETE", data.url);
             $("#input").show();
         } else if (data.status == 'Pending') {
-            setTimeout(function(){process_image(url);}, 1500);
+            setTimeout(function(){process_image(url);}, 2500);
         } else {
             $("#input").show();
         }
@@ -163,7 +168,6 @@ $(document).ready(function() {
             $(input).val('');
         } else {
             if(test_url(command)) {
-                logMessage('> LOADING... ');
                 $("#input").hide();
                 process_image(command);
                 $(input).val('');

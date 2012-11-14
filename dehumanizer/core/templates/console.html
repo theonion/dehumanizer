@@ -2,10 +2,11 @@
 <html>
 	<head>
 		<title>Dehumanizer86</title>
-        <link rel="icon" type="image/png" href="/favicon.png">
-        {% compress css %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/styles.css" />
-        {% endcompress %}
+    <meta charset="UTF-8"> 
+    <link rel="icon" type="image/png" href="/favicon.png">
+    {% compress css %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/styles.css" />
+    {% endcompress %}
 	</head>
 	<body>
         <div id="fb-root"></div>
@@ -42,7 +43,7 @@
                 <div class="row" id="input">><form action="/image"><input type="text" name="url" autocomplete="off" autofocus /></form></div>
             {% endif %}
             {% if ansi %}
-              <div class="ansi">
+              <div class="ansi" data-duration="{{ duration|default:0 }}">
                     {{ ansi|safe }}
               </div>
             {% endif %}

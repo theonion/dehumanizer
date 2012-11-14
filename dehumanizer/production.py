@@ -13,3 +13,5 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+MIDDLEWARE_CLASSES += ('django.middleware.gzip.GZipMiddleware',)
