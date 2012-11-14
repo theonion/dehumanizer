@@ -4,9 +4,11 @@
         return;
     }
 
-    var duration = this.data('duration');
-    if(duration === 0) {
-        duration = 50;
+    var duration = this.attr('data-duration');
+    if(duration === undefined || duration == '0') {
+        duration = 60;
+    } else {
+        duration = parseInt(duration);
     }
 
     this.find('.frame').hide();
@@ -47,11 +49,10 @@ function process_image(url){
         }
         if(data.status == 'Completed') {
             logMessage(data.ansi, 'ansi');
-            $('.ansi').data('duration', data.duration);
+            $('.ansi').attr('data-duration', data.duration);
             $('.ansi').ansiAnimate();
 
             window.history.pushState(data.url, "IMAGE DEHUMANIZATION COMPLETE", data.url);
-            $("#input").show();
         } else if (data.status == 'Pending') {
             setTimeout(function(){process_image(url);}, 2500);
         } else {
@@ -153,6 +154,10 @@ $(document).ready(function() {
     var input = $("#console form input");
 
     $('.ansi').ansiAnimate();
+
+    $('.logo').click(function(){
+        console.log("Home");
+    });
 
     form.submit(function(){
         var command = $(this).find('input').val();

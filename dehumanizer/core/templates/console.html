@@ -41,16 +41,25 @@
             {% endfor %}
             {% if show_command %}
                 <div class="row" id="input">><form action="/image"><input type="text" name="url" autocomplete="off" autofocus /></form></div>
+            {% else %}
+              <div class="row" id="input"></div>
             {% endif %}
             {% if ansi %}
-              <div class="ansi" data-duration="{{ duration|default:0 }}">
-                    {{ ansi|safe }}
-              </div>
+              {% include "ansi.html" with ansi=ansi %}
             {% endif %}
         </div>
         {% compress js %}
-		<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.2.min.js"></script>
+		    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
         {% endcompress %}
+        {% ifequal status "Pending" %}
+        <script type="text/javascript">
+          $(document).ready(function() {
+            setTimeout(function(){
+              process_image('{{ url }}');
+            }, 2500);
+          });
+        </script>
+        {% endifequal %}
 	</body>
 </html>

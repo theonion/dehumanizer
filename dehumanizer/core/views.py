@@ -49,12 +49,11 @@ def process(request, extension=None):
 
     context = {
         'status': image.get_status_display(),
-        'url': image.get_absolute_url(),
     }
 
     if image.status == Image.COMPLETED:
         context['message'] = [
-            "> %s" % image.url,
+            "> %s [<a href=\"/\">DEHUMANIZE ANOTHER IMAGE</a>]" % image.url,
             "&nbsp;",
         ]
         frames = image.frames.all()
@@ -64,6 +63,7 @@ def process(request, extension=None):
             context['ansi'] = '</div><div class="frame">'.join([frame.html for frame in frames]).join(['<div class="frame">', '</div>'])
             context['duration'] = image.duration
     elif image.status == Image.PENDING:
+        context['url'] = image.url
         context['message'] = [random.choice(PROCESSING_MESSAGES)]
     else:
         context['message'] = ["> REALITY IMPROVEMENT FAILED. PLEASE TRY ANOTHER IMAGE."]

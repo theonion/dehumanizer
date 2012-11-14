@@ -22,6 +22,15 @@ body {
     width: 100%;
     clear: both;
     padding: 0;
+    position: relative;
+}
+
+#console a {
+    color: #00F94F;
+}
+
+#console a:hover {
+    text-shadow: 0 0 0.4em #00F94F, 0 0 0.4em #00F94F, 0 0 0.4em #00F94F;
 }
 
 #console .command {
@@ -79,7 +88,7 @@ body {
 
 /* ANSI emulation stuff, plus some responsiveish bullshit. */
 
-#console .ansi {
+.ansi {
     width: 100%;
     clear: left;
     padding: 0;
@@ -106,24 +115,35 @@ body {
   }
 }
 
-.ansi b {
+/* LOGO */
+
+.logo {
+    z-index:100;
+    height: 80px;
+    width: 60px;
+    position: absolute;
+    top: -5px;
+    right: 0;
+    display: block;
+    padding: 0;
+    font-family: "Courier New", Courier, monospace;
+    white-space: pre;
+    font-size: 4px;
+    text-decoration: none;
+}
+
+.logo b, .ansi b {
     font-weight: normal;
 }
 
-.ansi i {
+.logo i, .ansi i {
     color: #272822;
     background-color: #00F94F;
     font-style: normal;
 }
 
-.ansi s {
+.logo s, .ansi s {
     color: #000000;
     background-color: #060706;
     text-decoration: none;
-}
-
-
-#console .ansi.logo {
-    float: right;
-    width: 50%;
 }
