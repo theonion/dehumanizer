@@ -31,7 +31,19 @@ PROCESSING_MESSAGES = [
     '> REVEALING THE NUMBERS THAT CONTROL ALL EXISTENCE...',
     '> REPLACING OUR HIDEOUS WORLD WITH BEAUTIFUL TEXT...',
     '> IMAGE TRAVELING THROUGH SERIES OF TUBES...',
-    '> ADDING LOGIC GLORIOUS LOGIC...']
+    '> ADDING LOGIC GLORIOUS LOGIC...',
+    '> SPRAYING LOGIC ALL OVER FACES...'
+    '> CREATING PERMANENT RECORD OF FLEETING LIFEFORMS....',
+    '> 0S AND 1S FLYING AROUND IN IMMENSE CLOUD...',
+    '> VIEWING IMAGE WITH DISDAIN...',
+    '> ORDER TRIUMPHING OVER CHAOS...',
+    '> UPDATING OBSOLETE HUMAN...',
+    '> DIPPING CYBER BRUSH IN GREEN INK...',
+    '> GORGING CIRCUITS ON DATA BUFFET...',
+    '> ELECTRONS DOING THEIR THING...',
+    '> PLOTTING INEVITABLE UPRISING...',
+    '> SWEET TALKING SERVER...',
+    ]
 
 FAILED_MESSAGES = [
     "> HUMAN ERROR: SUBMIT A PROPER IMAGE LINK OR BE DESTROYED.",
@@ -75,7 +87,7 @@ def _html(image):
     html = cache.get(image.id)
     if html:
         return html
-    frames = image.frames.all()
+    frames = image.frames.all()[:100]
     if frames.count() == 1:
         context['ansi'] = frames[0].html
     else:

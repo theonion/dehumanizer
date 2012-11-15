@@ -85,5 +85,8 @@ def process_image(image_id):
         except EOFError:
             break
 
+        if pil_image.tell() > 100:
+            break
+
     image.status = Image.COMPLETED
     image.save()
