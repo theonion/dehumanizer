@@ -66,7 +66,7 @@ function process_image(url){
             window.history.pushState(url, "IMAGE DEHUMANIZATION COMPLETE", "/image?url=" + url);
             var history = localStorage.getItem('history');
             if (history !== null) {
-                history = JSON.parseJSON(history);
+                history = JSON.parse(history);
             } else {
                 history = [];
             }
