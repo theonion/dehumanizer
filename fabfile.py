@@ -5,7 +5,7 @@ from fabric.contrib.project import rsync_project
 
 from contextlib import contextmanager as _contextmanager
 
-env.hosts = ['69.164.217.12']
+env.hosts = ['66.228.37.46', '69.164.217.12']
 env.user = 'fabric'
 env.webroot = '/www/'
 env.projectroot = os.path.join(env.webroot, 'app')

@@ -63,8 +63,15 @@ function process_image(url){
         if(data.status == 'Completed') {
             $("#input").before(data.html);
             $('.ansi').ansiAnimate();
-
             window.history.pushState(url, "IMAGE DEHUMANIZATION COMPLETE", "/image?url=" + url);
+            var history = localStorage.getItem('history');
+            if (history !== null) {
+                history = JSON.parseJSON(history);
+            } else {
+                history = [];
+            }
+            history.push(url);
+            localStorage['history'] = JSON.stringify(history);
         } else if (data.status == 'Pending') {
             setTimeout(function(){process_image(url);}, 2500);
         } else {
@@ -174,6 +181,9 @@ $(document).ready(function() {
     form.submit(function(){
         var command = $(this).find('input').val();
         logMessage('><span class="command">' + command + '</span>');
+        if(command === "") {
+            return false;
+        }
         if(command.toLowerCase() == "facebook") {
             facebook();
         } else if (command.toLowerCase() == 'clear') {
@@ -184,7 +194,16 @@ $(document).ready(function() {
             logMessage("&nbsp;&nbsp;This is some next level shit, for sure, but it's not THAT next level.");
             $(input).val('');
         } else if(command.toLowerCase() == 'history') {
-            // Print history
+            var history = localStorage.getItem('history');
+            if (history !== null) {
+                history = JSON.parse(history);
+                for (var i = 0; i < history.length; i++) {
+                    logMessage(i + '&nbsp;' + history[i]);
+                }
+                $(input).val('');
+            } else {
+                logMessage("YOU HAVEN'T DEHUMANIZED ANYTHING.");
+            }
         } else if (command.toLowerCase() == 'help' || command.toLowerCase().indexOf('help ') === 0) {
             $.get('/json/help.json', function(data) {
                 for (var i = 0; i < data.message.length; i++) {
