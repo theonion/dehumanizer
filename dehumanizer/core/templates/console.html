@@ -52,6 +52,7 @@
         </div>
         {% compress js %}
 		    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/keymaster.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
         {% endcompress %}
         {% ifequal status "Pending" %}

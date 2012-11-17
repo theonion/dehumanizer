@@ -172,10 +172,18 @@ $(document).ready(function() {
     var form = $("#console form");
     var input = $("#console form input");
 
+    var history;
+
     $('.ansi').ansiAnimate();
 
     $('.logo').click(function(){
         console.log("Home");
+    });
+
+    key('ctrl+c', function() {
+        var command = $('input').val();
+        logMessage('><span class="command">' + command + '^C</span>');
+        $(input).val('');
     });
 
     form.submit(function(){
@@ -191,14 +199,14 @@ $(document).ready(function() {
             $('.message').remove();
             $('.ansi').remove();
         } else if (command.toLowerCase() == 'ls' || command.toLowerCase().indexOf('ls ') === 0 ) {
-            logMessage("&nbsp;&nbsp;This is some next level shit, for sure, but it's not THAT next level.");
+            logMessage("ERR: THIS IS SOME NEXT LEVEL SHIT FOR SURE, BUT IT'S NOT <b>THAT</b> NEXT LEVEL.");
             $(input).val('');
         } else if(command.toLowerCase() == 'history') {
             var history = localStorage.getItem('history');
             if (history !== null) {
                 history = JSON.parse(history);
                 for (var i = 0; i < history.length; i++) {
-                    logMessage(i + '&nbsp;' + history[i]);
+                    logMessage(i + '&nbsp;<a href="/image?url=' + history[i] + '">' + history[i] + '</a>');
                 }
                 $(input).val('');
             } else {

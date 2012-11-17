@@ -24,6 +24,9 @@ Alternatively, you can just run the whole damn thing via supervisor, which will 
 
 TODO:
 
- - implement 'history'
- - caching
- - 'help'
+- Cache image status
+- Task expiration
+- No task storage
+- 500 page
+- sharetools
+- clean up/comments

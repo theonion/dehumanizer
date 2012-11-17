@@ -32,7 +32,7 @@ PROCESSING_MESSAGES = [
     '> REPLACING OUR HIDEOUS WORLD WITH BEAUTIFUL TEXT...',
     '> IMAGE TRAVELING THROUGH SERIES OF TUBES...',
     '> ADDING LOGIC GLORIOUS LOGIC...',
-    '> SPRAYING LOGIC ALL OVER FACES...'
+    '> SPRAYING LOGIC ALL OVER FACES...',
     '> CREATING PERMANENT RECORD OF FLEETING LIFEFORMS....',
     '> 0S AND 1S FLYING AROUND IN IMMENSE CLOUD...',
     '> VIEWING IMAGE WITH DISDAIN...',
@@ -87,7 +87,7 @@ def _html(image):
     html = cache.get(image.id)
     if html:
         return html
-    frames = image.frames.all()[:100]
+    frames = image.frames.defer('ansi').all()[:100]
     if frames.count() == 1:
         context['ansi'] = frames[0].html
     else:
